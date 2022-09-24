@@ -1,0 +1,25 @@
+.modal-content {
+  max-height: 30%;
+  padding: 24px 24px;
+
+  .user-info {
+    .flex-row {
+      margin-bottom: 24px;
+      display: flex;
+
+      .info {
+        width: 40%;
+      }
+
+      form {
+        align-items: self-end;
+
+        .form-group {
+          margin-right: 24px;
+        }
+
+      }
+    }
+  }
+
+}
