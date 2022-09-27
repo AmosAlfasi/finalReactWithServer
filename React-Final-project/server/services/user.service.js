@@ -5,6 +5,10 @@ module.exports = {
 		return User.find();
 	},
 
+	async deleteUser(id) {
+		return User.deleteOne({ _id: id });
+	},
+
 	//This method create user if not found,else,update the user that was found
 	async createOrUpdateUser(id, firstName, lastName, maritalStatus, birthday) {
 		const newUser = await User.findOneAndUpdate(

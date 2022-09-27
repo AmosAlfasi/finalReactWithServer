@@ -15,7 +15,6 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [filteredCosts, setFilteredCosts] = useState(costs);
-
   const MONTHS = generateNumbersArray(1, 12);
   const YEARS = generateNumbersArray(1970, 2022);
 
@@ -27,9 +26,9 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
     e.preventDefault();
     setFilteredCosts((prevValue) => {
       if (year !== "none" && month !== "none") {
-        return costs.filter((cost) => cost.year === year && cost.month === month);
+        return costs.filter((cost) => String(cost.year) === year && cost.month === month);
       } else if (year !== "none" && month === "none") {
-        return costs.filter((cost) => cost.year === year);
+        return costs.filter((cost) => String(cost.year) === year);
       } else if (year === "none" && month !== "none") {
         return costs.filter((cost) => cost.month === month);
       } else return costs;
@@ -98,7 +97,7 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
                   <td className="name">{cost.name}</td>
                   <td className="category">{cost.category}</td>
                   <td className="description">{cost.description}</td>
-                  <th className="cost">{cost.cost}</th>
+                  <th className="cost">{cost.sum}</th>
                   <th className="date">
                     {cost.month}/{cost.year}
                   </th>

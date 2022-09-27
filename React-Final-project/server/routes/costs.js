@@ -12,16 +12,16 @@ router.post(
 	"/insert",
 
 	async (req, res) => {
-		const { description, category, year, month, sum, userId, name } = req.body;
+		const { name, description, category, year, month, sum, userId } = req.body;
 
 		const newCost = await costService.insertCost(
+			name,
 			description,
 			category,
 			year,
 			month,
 			sum,
-			userId,
-			name
+			userId
 		);
 
 		res.status(200).send(newCost);
@@ -34,7 +34,8 @@ router.get(
 	async (req, res) => {
 		const { id } = req.params;
 		const costs = await getUserCosts(id);
-
+		
+		
 		res.status(200).send(costs);
 	}
 );
