@@ -1,6 +1,7 @@
 import React from "react";
 import "./UserItem.scss";
 
+//View user card in main page
 const UserItem = ({ user, onShowInfo }) => {
   const handleClick = (e) => {
     e.preventDefault();

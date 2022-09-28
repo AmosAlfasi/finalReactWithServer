@@ -18,10 +18,12 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
   const MONTHS = generateNumbersArray(1, 12);
   const YEARS = generateNumbersArray(1970, 2022);
 
+  //updating the filterd costs depending on the chosen user
   useEffect(() => {
     setFilteredCosts(costs);
   }, [costs]);
-
+  
+  //changing the costs view when the year and the month fields changes
   const submitHandler = (e) => {
     e.preventDefault();
     setFilteredCosts((prevValue) => {

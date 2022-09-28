@@ -31,7 +31,7 @@ const AddUser = (props) => {
     setShow(false);
     props.onClosePopup({ status: false });
   };
-
+  //when Submiting the form,creating an event that send the new user data to the parent componnet
   const submitHandler = (e) => {
     e.preventDefault();
     setShow(false);

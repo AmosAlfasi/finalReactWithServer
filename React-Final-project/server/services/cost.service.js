@@ -25,4 +25,7 @@ module.exports = {
 	async getUserCosts(id) {
 		return Cost.find({ userId: id.replace("\n", "") });
 	},
+	async deleteCost(id) {
+		await Cost.deleteMany({ userId: id });
+	},
 };

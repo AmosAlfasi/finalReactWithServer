@@ -14,14 +14,7 @@ const costSchema = new mongoose.Schema(
 		},
 		category: {
 			type: String,
-			enum: [
-				"food",
-				"health",
-				"sport",
-				"housing",
-				"transportation",
-				"education",
-			],
+
 			required: true,
 		},
 		year: { type: Number, required: true },

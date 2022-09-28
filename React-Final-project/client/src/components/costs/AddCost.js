@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import "./AddCost.scss";
+
 const generateNumbersArray = (start, end) => {
   const temp = [];
   for (let i = start; i <= end; i++) {
@@ -23,6 +24,7 @@ const AddCost = ({ show, onClose, onSuccess, selectedUser }) => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
 
+  //when Submiting the form,creating an event that send the new cost to the parent componnet
   const submitHandler = (e) => {
     e.preventDefault();
     const newCost = {

@@ -2,6 +2,8 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import './Search.scss';
 
+
+//Sending event to the parent componnet whenever the search string changes
 const Search = props => {
     const handleInputChange = (e) => {
         e.preventDefault();

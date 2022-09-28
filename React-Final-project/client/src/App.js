@@ -8,11 +8,9 @@ import Search from "./components/filters/Search";
 import UserInfo from "./components/users/UserInfo";
 import AddUser from "./components/users/AddUser";
 import AddCost from "./components/costs/AddCost";
-import useCostManager from "./services/useCostManager";
 import useOpenModal from "./services/useOpenModel";
 
-let initUsers = [];
-
+// Add new users to mongoDb
 const addUser = (newUser) => {
   const requestOptions = {
     method: "POST",
@@ -31,6 +29,7 @@ const addUser = (newUser) => {
     .then((body) => {});
 };
 
+//Add new cost to user in MongoDb
 const addCostServer = (newCost, selectedUser) => {
   const requestOptions = {
     method: "POST",
@@ -50,6 +49,7 @@ const addCostServer = (newCost, selectedUser) => {
     .then((body) => {});
 };
 
+//delete user and all of his related costs from MongoDb
 const deleteUserFromDb = (_id) => {
   const requestOptions = {
     method: "POST",
@@ -62,79 +62,81 @@ const deleteUserFromDb = (_id) => {
   );
 };
 
+let initUsers = [];
+
 function App() {
+  //get users from mongoDb
   const getUsers = () => {
     fetch("http://localhost:1500/users/")
       .then((result) => result.json())
       .then((body) => {
+        //initialize users in client side
         setUsers(body);
         setFilteredUsers(body);
       });
   };
+
+  //get costs of specific user from mongodb
   const getCosts = (id) => {
     fetch(`http://localhost:1500/costs/get-user-costs/${id}`)
       .then((result) => result.json())
       .then((body) => {
+        //initialize costs of user in client side
         setCosts(body);
       });
   };
 
+  //initialize users whenever main-page get refreshed
   useEffect(() => {
     getUsers();
   }, []);
 
   const [selectedUser, setSelectedUser] = useState(null);
-
-  // const { costs, addCost, removeCost, refreshCosts } = useCostManager(selectedUser?.id ?? null, {
-  //   sortFn: (a, b) => b.timestamp - a.timestamp,
-  // });
-
   const [tempCosts, setCosts] = useState([]);
-
   const [users, setUsers] = useState(initUsers);
   const [filteredUsers, setFilteredUsers] = useState(initUsers);
   const [userInfoVisible, setShowUserInfo, setHideUserInfo] = useOpenModal(false);
   const [addUserVisible, setShowAddUser, setHideAddUser] = useOpenModal(false);
   const [addCostVisible, setShowAddCost, setHideAddCost] = useOpenModal(false);
 
+  //Update filterd users whenever users array changes
   useEffect(() => {
     setFilteredUsers(users);
   }, [users]);
 
+  const deleteUser = (id) => {
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setUsers((prevUsers) => {
+      const updatedUsers = prevUsers.filter((user) => user.id !== id);
+      return updatedUsers;
+    });
+    deleteUserFromDb(id);
+  };
+
+  //Show popup of user info and the user costs
   const showInfoHandler = (user) => {
     setSelectedUser(user);
     setShowUserInfo();
     getCosts(user.id);
   };
 
+  //show popup of adding a new cost to a user
   const showAddCostHandler = (user) => {
     setSelectedUser(user);
     setShowAddCost(true);
   };
 
-  const deleteUser = (id, _id) => {
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-    setUsers((prevUsers) => {
-      const updatedUsers = prevUsers.filter((user) => user.id !== id);
-      return updatedUsers;
-    });
-
-    deleteUserFromDb(_id);
-  };
-
+  //fliter users by the search string
   const onSearchChange = (value) => {
     setFilteredUsers(
       users.filter((user) => {
         const temp = `${user.firstName}${user.lastName}`;
-        const valTemp = value.slice(" ").toLowerCase();
-        console.log(`temp:${temp}`);
-        console.log(`valTemp:${valTemp}`);
-        console.log(temp.toLowerCase().includes(valTemp));
         return temp.toLowerCase().includes(value.replace(/\s/g, "").toLowerCase());
       }),
     );
   };
 
+  //adding new user to DB and updating the existing arrays of users and filterdUsers when add user pop-up closed
   const onCloseAddUserPopup = (params) => {
     setHideAddUser();
     addUser(params.newUser);
@@ -148,10 +150,14 @@ function App() {
     }
   };
 
+  //hide popup and execute relevant methods
   const addCostSuccessHandler = (newCost, selectedUser) => {
+    //adding new cost to DB
     addCostServer(newCost, selectedUser);
     setHideAddCost();
   };
+
+
 
   return (
     <div className="content">
@@ -172,7 +178,7 @@ function App() {
               <Button variant="outline-primary" onClick={() => showAddCostHandler(user)}>
                 Add Cost
               </Button>
-              <Button variant="outline-primary" onClick={() => deleteUser(user.id, user._id)}>
+              <Button variant="outline-primary" onClick={() => deleteUser(user.id)}>
                 Delete User
               </Button>
             </Card.Body>

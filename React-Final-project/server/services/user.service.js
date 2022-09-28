@@ -6,7 +6,7 @@ module.exports = {
 	},
 
 	async deleteUser(id) {
-		return User.deleteOne({ _id: id });
+		return User.deleteOne({ id });
 	},
 
 	//This method create user if not found,else,update the user that was found

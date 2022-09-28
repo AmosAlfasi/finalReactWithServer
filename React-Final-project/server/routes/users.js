@@ -2,6 +2,7 @@ var express = require("express");
 const { body, validationResult } = require("express-validator");
 const { getUsers } = require("../services/user.service");
 const userService = require("../services/user.service");
+const costService = require("../services/cost.service");
 
 const router = express.Router();
 
@@ -92,6 +93,7 @@ router.post(
 			const { id } = req.params;
 
 			const users = await userService.deleteUser(id);
+			await costService.deleteCost(id);
 
 			res.status(200).send(users);
 		} catch (error) {
