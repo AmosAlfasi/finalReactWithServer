@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./UserInfo.scss";
+import "./userinfo.scss";
 import { Modal, Form, Table, Button } from "react-bootstrap";
 
 const generateNumbersArray = (start, end) => {
@@ -22,7 +22,7 @@ const UserInfo = ({ show, onClose, selectedUser, costs }) => {
   useEffect(() => {
     setFilteredCosts(costs);
   }, [costs]);
-  
+
   //changing the costs view when the year and the month fields changes
   const submitHandler = (e) => {
     e.preventDefault();

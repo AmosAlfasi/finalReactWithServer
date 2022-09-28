@@ -3,7 +3,7 @@ import { default as UUID } from "node-uuid";
 import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import "./AddCost.scss";
+import "./addcost.scss";
 
 const generateNumbersArray = (start, end) => {
   const temp = [];
@@ -44,7 +44,7 @@ const AddCost = ({ show, onClose, onSuccess, selectedUser }) => {
   return (
     <Modal show={show && !!selectedUser} onHide={onClose}>
       <div className="add-cost">
-      <div className="title">{`Add cost to ${selectedUser?.firstName} ${selectedUser?.lastName}`}</div>
+        <div className="title">{`Add cost to ${selectedUser?.firstName} ${selectedUser?.lastName}`}</div>
         <Form>
           <Form.Group className="form-group">
             <Form.Label>Name:</Form.Label>

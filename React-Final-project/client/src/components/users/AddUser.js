@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { default as UUID } from "node-uuid";
-import "./AddUser.scss";
+import "./adduser.scss";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./UserItem.scss";
+import "./useritem.scss";
 
 //View user card in main page
 const UserItem = ({ user, onShowInfo }) => {

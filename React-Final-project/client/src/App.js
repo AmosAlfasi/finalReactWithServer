@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import UserItem from "./components/users/UserItem";
+import UserItem from "./components/users/useritem";
 import Card from "react-bootstrap/Card";
 import { Button } from "react-bootstrap";
 import Avatar from "./image/avatar.svg";
-import Search from "./components/filters/Search";
-import UserInfo from "./components/users/UserInfo";
-import AddUser from "./components/users/AddUser";
-import AddCost from "./components/costs/AddCost";
-import useOpenModal from "./services/useOpenModel";
+import Search from "./components/filters/search";
+import UserInfo from "./components/users/userinfo";
+import AddUser from "./components/users/adduser";
+import AddCost from "./components/costs/addcost";
+import useOpenModal from "./services/useopenmodel";
 
 // Add new users to mongoDb
 const addUser = (newUser) => {
@@ -156,8 +156,6 @@ function App() {
     addCostServer(newCost, selectedUser);
     setHideAddCost();
   };
-
-
 
   return (
     <div className="content">
